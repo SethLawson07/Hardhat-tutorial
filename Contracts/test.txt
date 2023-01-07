@@ -1,0 +1,56 @@
+//SPDX-License-Identifier: UNLICENSED
+import "hardhat/console.sol";
+
+// Solidity files have to start with this pragma.
+// It will be used by the Solidity compiler to validate its version.
+pragma solidity ^0.8.17;
+
+contract Voting {
+
+    struct Candidate {
+        string lastName;
+        string firstName;
+        uint totalVote;
+    }
+
+
+    mapping(address => Candidate) candidates;
+    Candidate [] dataResults;
+    
+    address [] voters;
+    event Notify(address _address,address to);
+
+    // Function to add candidates all data in the mapping
+    function addCandidate(address _address,string memory _lastName, string memory _firstName) external {
+        candidates[_address]=Candidate(_lastName,_firstName,0);
+        console.log("Successfully registered candidate : %s %s %s ",_address,_firstName,_lastName);
+    }
+
+    // Function to return all data in the mapping
+    function getCandidates() external view returns() {
+
+      
+  
+
+    }
+
+    // Function to return a data in the mapping
+    function getCandidate(address _address) external view returns (Candidate memory){
+        return candidates[_address];
+    }
+
+    // Function to add vote
+    function addVote(address _address,address _to) external {
+        require(_address!=_to,"You don't have the right to vote");
+        candidates[_to].totalVote++;
+        voters.push(_address);
+        console.log("Vote successfully completed");
+        emit Notify(_address,_to);
+
+    }
+
+    /*function getWinner() external {
+        
+    }*/
+
+}
