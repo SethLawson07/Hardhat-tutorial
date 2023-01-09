@@ -20,7 +20,7 @@ contract Reservation {
 
     Room [] rooms;
 
-    struct Reservation {
+    struct Room_reservation {
         address customer;
         uint32 roomId;
         uint32 nbDays;
@@ -36,20 +36,18 @@ contract Reservation {
      // Fallback function is called when msg.data is not empty
     fallback() external payable {}
 
-    function addRomm(string _name,uint _price) external {
-        require(_name,_price,"False");
-        rooms.push(_name,_price);
+    function addRoom(string memory _name,uint _price) external {
+        rooms.push(Room(_name,_price));
         console.log("True");
     }    
 
-    function addcustomer(address _id,string _firstName,string _lastName) external {
-        require(_id,_firstName,_lastName,"False");
-        customers.push(_id,_firstName,_lastName);
+    function addcustomer(address _id,string memory _firstName,string memory _lastName) external {
+        customers.push(Customer(_id,_firstName,_lastName));
         console.log("True");
 
     }
 
-    function addReservation(address _customer,uint32 _roomId,uint32 _nbDays) external {
+    /*function addReservation(address _customer,uint32 _roomId,uint32 _nbDays) external {
         uint32 memory price;
         for(i=0;i<rooms.length;i++){
             if(rooms[i]==_roomId){
@@ -63,7 +61,7 @@ contract Reservation {
 
     function getBalance() external {
         return msg.value;
-    }
+    }*/
 
     
 
